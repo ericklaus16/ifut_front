@@ -1,5 +1,5 @@
 {
-  "name": "ifut-mobile",
+  "name": "ifut-app",
   "main": "expo-router/entry",
   "version": "1.0.0",
   "scripts": {
@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^14.0.0",
+    "@mui/icons-material": "^5.15.15",
     "@react-navigation/native": "^6.0.2",
     "expo": "~50.0.14",
     "expo-font": "~11.10.3",
