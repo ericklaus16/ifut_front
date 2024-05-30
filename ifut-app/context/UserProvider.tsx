@@ -2,7 +2,7 @@
 import UserData from '@/classes/UserData';
 import { Alocacao } from '@/types/Alocacao';
 import { UserType } from '@/types/User';
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 
 interface PostContextProps {
     user: UserData | undefined;
@@ -28,18 +28,20 @@ export const UserProvider: React.FC<PostProviderProps> = ({ children }) => {
     const [user, setUser] = useState<UserData>();
     const [bookings, setBookings] = useState<Alocacao[]>()
 
+    useEffect(() => {
+        if(user?.classUser){
+            setBookings(user.classUser.alocacoes)
+        }
+    }, [user])
+
     const ChangeUser = (newUser: UserData) => {
         console.log('Atualizando o usuário no context!')
+        setUser(newUser);
         if(newUser.classUser){
             console.log(newUser.classUser)
             setBookings(newUser.classUser?.alocacoes)
         }
-        setUser(newUser);
     }
-
-    const addBooking = (newBooking: Alocacao) => {
-        user?.classUser?.alocacoes.push(newBooking)
-    };
 
     return (
         <UserContext.Provider value={{ user, bookings, ChangeUser }}>

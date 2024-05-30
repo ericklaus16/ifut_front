@@ -29,7 +29,7 @@ export default function TabTwoScreen() {
             id={allocation.id} key={index} user_id={allocation.user_id}
             />
           ))}
-          {!user?.classUser?.alocacoes && (
+          {user?.classUser?.alocacoes && user?.classUser?.alocacoes.length == 0 && (
             <Text style={{color: '#000'}}>Sem alocações no momento!</Text>
           )}
         </ScrollView>  

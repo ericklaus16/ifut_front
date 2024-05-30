@@ -10,9 +10,8 @@ export default class UserData {
     classUser: UserType | null = null;
 
     registerUser(userName: string, email: string, pass: string, cpf: string, phone: string): number {
-
         if(userName && email && pass && cpf){
-            axios.post('http://192.168.0.19:8080/adduser', {
+            axios.post('http://192.168.0.19:8080/users/add', {
                 username: userName,
                 email: email,
                 pass: pass,
@@ -80,9 +79,9 @@ export default class UserData {
         }
     }
 
-    async bookField(fieldId: number, user: UserType, bookingDate: string, bookingTime: string, nome: string): Promise<number> {
+    async bookfield(fieldId: number, user: UserType, bookingDate: string, bookingTime: string, nome: string): Promise<number> {
         try {
-            await axios.post('http://192.168.0.19:8080/bookfield', {
+            await axios.post('http://192.168.0.19:8080/allocations/book', {
                 field_id: fieldId,
                 userId: user.id,
                 date: bookingDate,
@@ -100,11 +99,13 @@ export default class UserData {
         } catch (error) {
             console.error('Erro ao reservar horário:', error)
         }
+
+        return -1
     }
 
     async unbookField(fieldId: number){
         try {
-            const response = await axios.delete(`http://192.168.0.19:8080/unbook/${fieldId}`, {
+            const response = await axios.delete(`http://192.168.0.19:8080/allocations/unbook/${fieldId}`, {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',

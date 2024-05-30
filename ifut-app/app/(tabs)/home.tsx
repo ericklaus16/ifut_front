@@ -14,7 +14,6 @@ import UserData from '@/classes/UserData';
 export default function TabOneScreen() {
   const navigator = useNavigation()
   const { user, ChangeUser } = useUserContext()
-  const [canLoad, setLoad] = useState(false)
 
   useEffect(() => {
     if(!SecureStorage.getItemAsync('userData')){

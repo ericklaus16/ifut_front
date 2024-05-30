@@ -68,7 +68,7 @@ export default function ModalScreen() {
     return datasFuncionamento;
   };
 
-  const handleBooking = () => {
+  const handleBooking = async () => {
     console.log('Reservando horário...')
     console.log('Campo:', nome)
     console.log('Data:', bookingDate)
@@ -78,23 +78,21 @@ export default function ModalScreen() {
       Alert.alert('Erro', 'Selecione uma data e um horário para reservar.')
       return
     }
-    // Enviar requisição para a API
-    user?.bookField(1, user?.classUser as UserType, bookingDate, bookingTime, nome as string).then(() => {
-      console.log('Horário reservado com sucesso!')
-      Alert.alert('Horário reservado com sucesso!', `Parabéns! Seu horário está marcado para as ${bookingTime} do dia ${bookingDate}.`, [
-          { text: 'OK', onPress: () => navigator.navigate('home') }
-      ])
-      }).catch((error) => {
-      console.error('Erro ao reservar horário:', error)
-      alert('Erro ao reservar horário. Tente novamente.')
-    })
-  }
 
-  useEffect(() => {
-    axios.get('http://192.168.0.19:8080/procurarhorario').then(() => {
-      
-    })
-  })
+    if(user && user.bookfield){
+      try {
+        await user.bookfield(1, user?.classUser as UserType, bookingDate, bookingTime, nome as string).then(() => {
+          console.log('Horário reservado com sucesso!')
+          Alert.alert('Horário reservado com sucesso!', `Parabéns! Seu horário está marcado para as ${bookingTime} do dia ${bookingDate}.`, [
+              { text: 'OK', onPress: () => navigator.navigate('home') }
+          ])
+        })
+      } catch (error) {
+        console.error('Erro ao reservar horário:', error)
+        alert('Erro ao reservar horário. Tente novamente.')
+      }
+    }
+  }
 
   return (
     <View style={styles.container}>
