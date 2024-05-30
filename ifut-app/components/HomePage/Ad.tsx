@@ -14,7 +14,7 @@ const Ad = () => {
 const styles = StyleSheet.create({
     ad: {
         width: '30%',
-        height: 200,
+        height: 100,
     }
 })
 
