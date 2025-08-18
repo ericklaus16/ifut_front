@@ -11,7 +11,7 @@ export default class UserData {
 
     registerUser(userName: string, email: string, pass: string, cpf: string, phone: string): number {
         if(userName && email && pass && cpf){
-            axios.post('http://192.168.0.19:8080/users/add', {
+            axios.post('http://192.168.1.3:8080/users/add', {
                 username: userName,
                 email: email,
                 pass: pass,
@@ -41,11 +41,13 @@ export default class UserData {
         } else {
             return -1
         }
+
+        return -1;
     }
 
     async getUserBookings() {
         try {
-            const response = await axios.get(`http://192.168.0.19:8080/allocations/user/${this.classUser?.id}`);
+            const response = await axios.get(`http://192.168.1.3:8080/allocations/user/${this.classUser?.id}`);
             const data = response.data as Alocacao[];
     
             if (this.classUser) {
@@ -58,7 +60,7 @@ export default class UserData {
 
     async loginUser(email: string, pass: string): Promise<UserType | null> {
         try {
-            const response = await axios.get('http://192.168.0.19:8080/users');
+            const response = await axios.get('http://192.168.1.3:8080/users');
             const users = response.data;
             
             for (const user of users) {
@@ -81,7 +83,7 @@ export default class UserData {
 
     async bookfield(fieldId: number, user: UserType, bookingDate: string, bookingTime: string, nome: string): Promise<number> {
         try {
-            await axios.post('http://192.168.0.19:8080/allocations/book', {
+            await axios.post('http://192.168.1.3:8080/allocations/book', {
                 field_id: fieldId,
                 userId: user.id,
                 date: bookingDate,
@@ -105,7 +107,7 @@ export default class UserData {
 
     async unbookField(fieldId: number){
         try {
-            const response = await axios.delete(`http://192.168.0.19:8080/allocations/unbook/${fieldId}`, {
+            const response = await axios.delete(`http://192.168.1.3:8080/allocations/unbook/${fieldId}`, {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',

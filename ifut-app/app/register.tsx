@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, TextInput } from "react-native";
-import { useNavigation } from "expo-router";
+import { useRouter } from "expo-router";
 
 import * as SecureStore from 'expo-secure-store'
 
@@ -17,7 +17,7 @@ export default function Register(){
     const [pass, setPass] = useState("")
     const [cpf, setCpf] = useState("")
     const [phone, setPhone] = useState("")
-    const navigator = useNavigation()
+    const router = useRouter()
 
     const handleRegister = async () => {
         const userData = new UserData()
@@ -28,7 +28,7 @@ export default function Register(){
             if(id != -1){
                 ChangeUser(userData)
                 SecureStore.setItemAsync('userData', JSON.stringify(userData))
-                navigator.navigate('index')
+                router.push('/index')
             }
         })
     }

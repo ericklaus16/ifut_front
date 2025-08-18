@@ -1,5 +1,5 @@
 import { View } from "@/components/Themed";
-import { Link, Tabs, useNavigation } from "expo-router";
+import { Link, Tabs, useRouter } from "expo-router";
 import { Alert, StyleSheet, Text, TextInput, TouchableOpacity, TouchableOpacityBase, useColorScheme } from "react-native";
 import { useFonts } from "expo-font";
 import { useEffect, useState } from "react";
@@ -13,7 +13,7 @@ import { useUserContext } from "@/context/UserProvider";
 export default function StackTabOne(){
     const { ChangeUser } = useUserContext()
 
-    const navigator = useNavigation();
+    const router = useRouter();
     const [email, setEmail] = useState("")
     const [pass, setPass] = useState("")
 
@@ -22,7 +22,7 @@ export default function StackTabOne(){
             if(response){
                 console.log('Você fechou o app sem deslogar.')
                 ChangeUser(JSON.parse(response))
-                navigator.navigate('(tabs)')
+                router.replace('(tabs)')
             }
         })
     }, [])
@@ -43,7 +43,7 @@ export default function StackTabOne(){
                         ChangeUser(userData)
                         setEmail("")
                         setPass("")
-                        navigator.navigate('(tabs)')
+                        router.replace('(tabs)')
                     })
                 } else {
                     Alert.alert('Erro', 'Usuário ou senha incorretos', [{text: 'Ok'}])
@@ -81,8 +81,8 @@ export default function StackTabOne(){
             <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
                 <Text style={styles.loginButtonText}>Entrar</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigator.navigate('register')} style={styles.registerLink}>
-                <Text>Não tenho uma conta Ifut</Text>    
+            <TouchableOpacity onPress={() => router.replace('/register')}>
+                <Text style={styles.registerLink}>Não tenho uma conta Ifut</Text>    
             </TouchableOpacity>
             <View style={styles.loginsSecundarios}>
                 <Text>Continue com Apple</Text>

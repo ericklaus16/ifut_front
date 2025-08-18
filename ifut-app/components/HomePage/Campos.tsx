@@ -10,7 +10,7 @@ const filteredArray: CampoType[] = []
 const Campos = () => {
     const [campos, setCampos] = useState<CampoType[]>([])
     useEffect(() => {
-        axios.get("http://192.168.0.19:8080/fields").then((res) => {
+        axios.get("http://192.168.1.3:8080/fields").then((res) => {
             if(res.status === 200){
                 setCampos(res.data)
             }
